@@ -1,14 +1,48 @@
-const express = require("express");
+import express from "express";
+import dotenv from "dotenv";
+import http from "http";
+import {Server} from "socket.io";
+import authRoutes from "./routes/auth.routes.js"
+import path from "path";
+import { fileURLToPath } from "url";
+import connectToMongoDB from "./db/connectToMongoDB.js";
+
+
+// Assuming index.html is in the root directory of your project
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const indexPath = path.join(__dirname, "index.html");
+
+dotenv.config();
+
 const app = express();
-const http = require("http");
 const server = http.createServer(app);
-const { Server } = require("socket.io");
 const io = new Server(server);
+
+app.use(express.json()) // to parse the incoming requests with JSON payloads (from req.body)
+
+
+
+
+
+
 const port = 4000
 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html');
+    res.sendFile(indexPath);
 });
+
+
+
+app.use("/api/auth", authRoutes)
+
+
+
+
+
+
+
+
+
 
 
 
@@ -25,16 +59,9 @@ io.on('connection', (socket) => {
     });
   });
 
-// io.on('connection', (socket) => {
-//     console.log('a user connected');
-//     socket.on('disconnect', () => {
-//         console.log(' a user disconnected')
-//     })
-// })
-
-
 
 server.listen(port, ()=>{
+    connectToMongoDB();
     console.log(`Server listening on *:${port}`);
 });
 
