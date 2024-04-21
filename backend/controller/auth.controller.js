@@ -1,4 +1,4 @@
-import User from "../models/user.model";
+import User from "../models/user.model.js";
 
 export const singup = async(req,res) => {
     try{
@@ -7,7 +7,7 @@ export const singup = async(req,res) => {
 
 
         if(password !== confirmPassword){
-            return res.status(400).json(error: "Passwords doesn't match")
+            return res.status(400).json({error: "Passwords doesn't match"})
         }
 
         const user  = await User.findOne({username});
@@ -34,10 +34,19 @@ export const singup = async(req,res) => {
 
         await newUser.save();
 
+        res.status(201).json({
+            _id: newUser.id,
+            fullName: newUser.fullName,
+            username: newUser.username,
+            gender: newUser.gender,
+            profilePic: newUser.profilePic
+        })
+
 
     }
     catch(error){
-
+        console.log('error in signup', error);
+        res.status(500).json({error: "internal server error"});
     }
 }
 
