@@ -8,6 +8,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import connectToMongoDB from "./db/connectToMongoDB.js";
 import cookieParser from "cookie-parser";
+import userRoutes from "./routes/user.routes.js";
 
 
 // Assuming index.html is in the root directory of your project
@@ -36,7 +37,8 @@ app.get('/', (req, res) => {
 
 
 app.use("/api/auth", authRoutes)
-app.use("/api/messages", messageRoutes)
+app.use("/api/messages", messageRoutes);
+app.use("/api/users", userRoutes);
 
 
 
