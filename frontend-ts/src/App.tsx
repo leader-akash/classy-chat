@@ -1,17 +1,19 @@
-import { useState } from 'react'
-
 import './App.css'
+import Home from './pages/home/Home'
+import Login from "./pages/login/Login"
+import Signup from "./pages/signup/Signup"
+
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
-    <>
-      
-      <p className="text-[25px] bg-red-500">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className='p4 h-screen flex items-center justify-center'>
+        {/* <Login /> */}
+
+        {/* <Signup /> */}
+
+        <Home />
+    </div>
   )
 }
 

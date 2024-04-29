@@ -3,9 +3,12 @@ import dotenv from "dotenv";
 import http from "http";
 import {Server} from "socket.io";
 import authRoutes from "./routes/auth.routes.js"
+import messageRoutes from "./routes/message.routes.js"
 import path from "path";
 import { fileURLToPath } from "url";
 import connectToMongoDB from "./db/connectToMongoDB.js";
+import cookieParser from "cookie-parser";
+import userRoutes from "./routes/user.routes.js";
 
 
 // Assuming index.html is in the root directory of your project
@@ -19,7 +22,7 @@ const server = http.createServer(app);
 const io = new Server(server);
 
 app.use(express.json()) // to parse the incoming requests with JSON payloads (from req.body)
-
+app.use(cookieParser());
 
 
 
@@ -34,7 +37,8 @@ app.get('/', (req, res) => {
 
 
 app.use("/api/auth", authRoutes)
-
+app.use("/api/messages", messageRoutes);
+app.use("/api/users", userRoutes);
 
 
 
