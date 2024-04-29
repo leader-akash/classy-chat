@@ -8,7 +8,8 @@ export const getUsersForSidebar = async(req,res) => {
 
         const loggedInUserId = req.user._id;
 
-        const filteredUsers = await User.find({_id: { $ne: loggedInUserId}}) // after id $ne is means for not showing the logged in user in sidebar. You can chat to yourself if we remove this part
+        // after id $ne is means for not showing the logged in user in sidebar. You can chat to yourself if we remove this part
+        const filteredUsers = await User.find({_id: { $ne: loggedInUserId}}).select("-password") // with this it will not show the password in array of object
 
         res.status(200).json(filteredUsers)
 
