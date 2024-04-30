@@ -21,8 +21,6 @@ const Signup = () => {
 
 	const handleSubmit = async(e: any) => {
 		e.preventDefault();
-		console.log('submit', input)
-
 		await signup(input)
 	}
 
@@ -82,11 +80,17 @@ const Signup = () => {
 					<GenderCheckbox onCheckboxChange = {handleCheckboxChange} selectedGender={input.gender}/>
 
 					<a className='text-sm hover:underline hover:text-blue-600 mt-4 mb-2 inline-block text-white' href='/login'>
-						Already have an account? Login.
+						Already have an account? Login
 					</a>
 
 					<div>
-						<button type='submit' className='btn btn-block btn-sm mt-2 border border-slate-700'>Sign Up</button>
+						<button type='submit' className='btn btn-block btn-sm mt-2 border border-slate-700' disabled={loading}>
+							{
+								loading ? <span className='loading loading-spinner'></span>
+								:
+								"Sign Up"
+							}
+						</button>
 					</div>
 				</form>
 			</div>

@@ -14,7 +14,7 @@ interface AuthContextProviderProps {
 }
 const AuthContextProvider: React.FC<AuthContextProviderProps> = ({ children }) => {
 
-    const [authUser, setAuthUser] = useState(localStorage.getItem("chat-app") || null);
+    const [authUser, setAuthUser] = useState(JSON.parse(localStorage.getItem("chat-app")) || null);
 
     return (
         <AuthContext.Provider value={{ authUser, setAuthUser }}>

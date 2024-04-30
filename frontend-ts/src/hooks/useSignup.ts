@@ -27,7 +27,6 @@ const useSignup = () => {
                 throw new Error(res?.error)
             }
 
-            console.log('res', res)
             const data = res?.data
 
             localStorage.setItem("chat-app", JSON.stringify(data))
