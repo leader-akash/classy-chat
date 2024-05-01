@@ -18,6 +18,7 @@ const useSendMessage = () => {
                 message
             })
 
+            console.log('resssss', res)
             if(res?.error) {
                 throw new Error(res?.error)
             }
@@ -25,6 +26,8 @@ const useSendMessage = () => {
 
         }
         catch(error: any){
+            console.log('error', error)
+
             toast.error(error?.message);
         }
         finally{

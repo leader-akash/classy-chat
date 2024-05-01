@@ -9,6 +9,7 @@ import { fileURLToPath } from "url";
 import connectToMongoDB from "./db/connectToMongoDB.js";
 import cookieParser from "cookie-parser";
 import userRoutes from "./routes/user.routes.js";
+import { disconnect } from "process";
 
 // Assuming index.html is in the root directory of your project
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -21,7 +22,7 @@ dotenv.config();
 const server = http.createServer(app);
 
 
-const io = new Server(server, {
+export const io = new Server(server, {
   cors:{
       origin: "*",
   }
@@ -47,14 +48,34 @@ app.use("/api/messages", messageRoutes);
 app.use("/api/users", userRoutes);
 
 
+export const getReceiverSocketId = (receiverId) => {
+  return userSocketMap[receiverId]
+}
+
+
+const userSocketMap = {} // {userId: socketId}
+
 io.on('connection', (socket) => {
-  console.log('a user connected', socket.id)
+  console.log('a user connected', socket.id);
+
+  const userId = socket.handshake?.query?.userId;
+
+  if(userId != 'undefined') userSocketMap[userId] = socket.id;
+
+  //io.emit() is used to send events to all connected clients
+  io.emit('getOnlineUsers', Object.keys(userSocketMap));
 
   //sokcet.on() is used to listen to the events. can be used both on client and server side.
   socket.on("disconnect", () => {
-      console.log("user disconnected", socket.id)
+      console.log("user disconnected", socket.id);
+
+      delete userSocketMap[userId];
+
+      io.emit('getnOnlineUsers', Object.keys(userSocketMap))
   })
 })
+
+
 
 
 server.listen(port, ()=>{
