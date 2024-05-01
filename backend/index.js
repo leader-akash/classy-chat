@@ -12,8 +12,8 @@ import userRoutes from "./routes/user.routes.js";
 import { disconnect } from "process";
 
 // Assuming index.html is in the root directory of your project
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const indexPath = path.join(__dirname, "index.html");
+// const __dirname = path.dirname(fileURLToPath(import.meta.url));
+// const indexPath = path.join(__dirname, "index.html");
 
 const app = express();
 
@@ -32,15 +32,10 @@ app.use(express.json()) // to parse the incoming requests with JSON payloads (fr
 app.use(cookieParser());
 
 
+const __dirname = path.resolve();
 
 
-
-const port = 4000
-
-app.get('/', (req, res) => {
-    res.sendFile(indexPath);
-});
-
+const port = process.env.PORT || 4000
 
 
 app.use("/api/auth", authRoutes)
@@ -75,6 +70,12 @@ io.on('connection', (socket) => {
   })
 })
 
+
+app.use(express.static(path.join(__dirname, "/frontend-ts/dist")));
+
+app.get("*", (req, res) => {
+	res.sendFile(path.join(__dirname, "frontend-ts", "dist", "index.html"));
+});
 
 
 
