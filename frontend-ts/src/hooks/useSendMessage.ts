@@ -18,9 +18,8 @@ const useSendMessage = () => {
                 message
             })
 
-            console.log('resssss', res)
-            if(res?.error) {
-                throw new Error(res?.error)
+            if(res?.data?.error) {
+                throw new Error(res?.data?.error)
             }
             setMessages([...messages, res?.data])
 

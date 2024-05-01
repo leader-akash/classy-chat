@@ -11,7 +11,7 @@ const useGetMessages = () => {
         setLoading(true);
         try {
             const res = await axios.get(`/api/messages/${selectedConversation._id}`);
-            if (res.error) throw new Error(res.error);
+            if (res?.data?.error) throw new Error(res?.data?.error);
             setMessages(res?.data);
         } catch (error: any) {
             toast.error(error.message);

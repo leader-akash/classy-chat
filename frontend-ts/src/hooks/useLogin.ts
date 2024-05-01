@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState } from 'react'
+import { useState } from 'react'
 import toast from 'react-hot-toast';
 import { useAuthContext } from '../context/AuthContext';
 
@@ -8,7 +8,7 @@ const useLogin = () => {
     const [loading, setLoading] = useState(false);
     const {setAuthUser} = useAuthContext();
 
-    const login = async (username, password) => {
+    const login = async (username: string, password: string) => {
 
         const success = handleInputErrors(username, password);
         if(!success) return;
@@ -43,7 +43,7 @@ const useLogin = () => {
 
 export default useLogin
 
-const handleInputErrors = (username, password) => {
+const handleInputErrors = (username: string, password: string) => {
     if(!username || !password) {
         toast.error("Please fill in all fields")
         return false;

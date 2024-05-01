@@ -1,10 +1,18 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import GenderCheckbox from './GenderCheckbox';
 import useSignup from '../../hooks/useSignup';
 
+interface InputState {
+	fullName: string;
+	username: string;
+	password: string;
+	confirmPassword: string;
+	gender: string;
+  }
+
 const Signup = () => {
 
-	const [input, setInput] = useState({
+	const [input, setInput] = useState<InputState>({
 		fullName: '',
 		username: '',
 		password: "",

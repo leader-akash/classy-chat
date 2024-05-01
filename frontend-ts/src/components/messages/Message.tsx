@@ -2,7 +2,11 @@ import { useAuthContext } from "../../context/AuthContext"
 import { extractTime } from "../../utils/extractTime";
 import useConversation from "../../zustand/useConversation";
 
-const Message = ({message}) => {
+interface messageType {
+  message: any
+}
+
+const Message: React.FC<messageType> = ({message}) => {
 
   const {authUser} = useAuthContext();
 

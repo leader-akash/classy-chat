@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState } from 'react'
+import { useState } from 'react'
 import toast from 'react-hot-toast';
 import { useAuthContext } from '../context/AuthContext';
 
@@ -9,7 +9,13 @@ const useSignup = () => {
 
     const {setAuthUser}  = useAuthContext();
 
-    const signup = async({fullName, username, password, confirmPassword, gender}) => {
+    const signup = async ({ fullName, username, password, confirmPassword, gender }: {
+        fullName: string,
+        username: string,
+        password: string,
+        confirmPassword: string,
+        gender: string // Adjusted to accept null or Gender type
+      }) => {
 
         const success = handleInputErrors({
             fullName, username, password, confirmPassword, gender
@@ -23,8 +29,8 @@ const useSignup = () => {
             })
 
             
-            if(res?.error){
-                throw new Error(res?.error)
+            if(res?.data?.error){
+                throw new Error(res?.data?.error)
             }
 
             const data = res?.data
@@ -47,8 +53,15 @@ const useSignup = () => {
 
 export default useSignup
 
+interface InputErrors {
+    fullName?: string;
+    username?: string;
+    password?: string;
+    confirmPassword?: string;
+    gender?: string;
+  }
 
-const handleInputErrors = ({fullName, username, password, confirmPassword, gender}) => {
+const handleInputErrors:  React.FC<InputErrors> = ({fullName, username, password, confirmPassword, gender}) => {
 
     if(!fullName || !username || !password || !confirmPassword || !gender) {
         toast.error("Please fill in all fields")

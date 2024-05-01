@@ -1,8 +1,14 @@
-import React from 'react'
 import useConversation from '../../zustand/useConversation';
 import { useSocketContext } from '../../context/SocketContext';
 
-const Conversation = ({conversation, lastIdx, emoji}) => {
+interface ConversationProps {
+	conversation: any // Assuming conversation is an array of messages
+	lastIdx: string; // Assuming lastIdx is a number
+	emoji: string; // Assuming emoji is a string representing an emoji
+  }
+  
+
+const Conversation: React.FC<ConversationProps> = ({conversation, lastIdx, emoji}) => {
 	
  const {selectedConversation, setSelectedConversation} =	useConversation();
 
@@ -12,9 +18,6 @@ const Conversation = ({conversation, lastIdx, emoji}) => {
 
 	const isOnline = onlineUsers?.includes(conversation?._id)
 
-	console.log('isOnline', isOnline)
-
-	
 	return (
 		<>
 			<div className={`flex gap-2 items-center hover:bg-sky-500 rounded p-2 py-1 cursor-pointer
