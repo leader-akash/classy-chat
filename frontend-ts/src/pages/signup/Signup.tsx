@@ -12,14 +12,14 @@ const Signup = () => {
 		gender: "",
 	})
 
-	const {loading, signup} = useSignup();
+	const { loading, signup } = useSignup();
 
 	const handleCheckboxChange = (gender: string) => {
-		setInput({...input, gender})
+		setInput({ ...input, gender })
 	}
 
 
-	const handleSubmit = async(e: any) => {
+	const handleSubmit = async (e: any) => {
 		e.preventDefault();
 		await signup(input)
 	}
@@ -37,7 +37,7 @@ const Signup = () => {
 							<span className='text-base label-text text-white'>Full Name</span>
 						</label>
 						<input type='text' placeholder='Akash' className='w-full input input-bordered  h-10' value={input.fullName}
-						onChange={(e) => setInput({...input, fullName: e.target.value})}
+							onChange={(e) => setInput({ ...input, fullName: e.target.value })}
 						/>
 					</div>
 
@@ -46,8 +46,8 @@ const Signup = () => {
 							<span className='text-base label-text text-white'>Username</span>
 						</label>
 						<input type='text' placeholder='akashking' className='w-full input input-bordered h-10'
-						value={input.username}
-						onChange={(e)=> setInput({...input, username: e.target.value})}
+							value={input.username}
+							onChange={(e) => setInput({ ...input, username: e.target.value })}
 						/>
 					</div>
 
@@ -60,7 +60,7 @@ const Signup = () => {
 							placeholder='Enter Password'
 							className='w-full input input-bordered h-10'
 							value={input.password}
-						onChange={(e)=> setInput({...input, password: e.target.value})}
+							onChange={(e) => setInput({ ...input, password: e.target.value })}
 						/>
 					</div>
 
@@ -73,11 +73,11 @@ const Signup = () => {
 							placeholder='Confirm Password'
 							className='w-full input input-bordered h-10'
 							value={input.confirmPassword}
-						onChange={(e)=> setInput({...input, confirmPassword: e.target.value})}
+							onChange={(e) => setInput({ ...input, confirmPassword: e.target.value })}
 						/>
 					</div>
 
-					<GenderCheckbox onCheckboxChange = {handleCheckboxChange} selectedGender={input.gender}/>
+					<GenderCheckbox onCheckboxChange={handleCheckboxChange} selectedGender={input.gender} />
 
 					<a className='text-sm hover:underline hover:text-blue-600 mt-4 mb-2 inline-block text-white' href='/login'>
 						Already have an account? Login
@@ -87,8 +87,8 @@ const Signup = () => {
 						<button type='submit' className='btn btn-block btn-sm mt-2 border border-slate-700' disabled={loading}>
 							{
 								loading ? <span className='loading loading-spinner'></span>
-								:
-								"Sign Up"
+									:
+									"Sign Up"
 							}
 						</button>
 					</div>
