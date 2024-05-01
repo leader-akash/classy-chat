@@ -17,6 +17,7 @@ const Conversation: React.FC<ConversationProps> = ({conversation, lastIdx, emoji
 	const {onlineUsers} = useSocketContext();
 
 	const isOnline = onlineUsers?.includes(conversation?._id)
+	console.log('online', isOnline)
 
 	return (
 		<>

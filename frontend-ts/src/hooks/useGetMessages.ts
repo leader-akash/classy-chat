@@ -23,7 +23,7 @@ const useGetMessages = () => {
 	useEffect(() => {
 		if (selectedConversation?._id) 
             getMessages();
-	}, [selectedConversation?._id, setMessages]);
+	}, [selectedConversation?._id]);
 
 	return { messages, loading };
 };

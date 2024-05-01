@@ -25,12 +25,15 @@ export const sendMessage = async (req, res) => {
         const newMessage = new Message({
             senderId,
             receiverId,
-            message
+            message,
+            
         })
 
         if (newMessage) {
             conversation.messages.push(newMessage._id);
         }
+
+        await Promise.all([conversation.save(), newMessage.save()])
 
 
        
@@ -50,7 +53,6 @@ export const sendMessage = async (req, res) => {
         // await newMessage.save(); 
 
         // this will run in parallel
-        await Promise.all([conversation.save(), newMessage.save()])
 
         res.status(201).json(newMessage)
 
