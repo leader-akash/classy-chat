@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState } from 'react'
+import { useState } from 'react'
 import toast from 'react-hot-toast';
 import { useAuthContext } from '../context/AuthContext';
 
@@ -16,8 +16,8 @@ const useLogout = () => {
 
             const res = await axios.post(`/api/auth/logout`)
 
-            if(res?.error){
-                throw new Error(res?.error)
+            if(res?.data?.error){
+                throw new Error(res?.data?.error)
             }
             setAuthUser(null)
 

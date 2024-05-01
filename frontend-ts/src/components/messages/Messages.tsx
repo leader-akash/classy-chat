@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import Message from './Message'
 import useGetMessages from '../../hooks/useGetMessages'
 import MessageSkeleton from '../skeletons/MessageSkeleton';
@@ -7,14 +7,15 @@ import useListenMessages from '../../hooks/useListenMessages';
 const Messages = () => {
 
 	const { messages, loading } = useGetMessages();
-	const lastMessageRef = useRef(); 
+	const lastMessageRef = useRef<HTMLDivElement>(null);
 
-	useListenMessages();
+	// useListenMessages();
 
 	useEffect(() => {
-		setTimeout(() => {
-			lastMessageRef.current?.scrollIntoView({ behavior: "smooth" });
-		}, 100);
+		if (messages?.length)
+			setTimeout(() => {
+				lastMessageRef.current?.scrollIntoView({ behavior: "smooth" });
+			}, 100);
 	}, [messages]);
 
 	return (
@@ -22,9 +23,9 @@ const Messages = () => {
 
 			{!loading &&
 				messages.length > 0 &&
-				messages.map((message: any) => (
-					<div key={message._id} 
-						ref={lastMessageRef}
+				messages.map((message: any, index) => (
+					<div key={message._id}
+						ref={messages?.length - 1 === index ? lastMessageRef : null}
 					>
 						<Message message={message} />
 					</div>

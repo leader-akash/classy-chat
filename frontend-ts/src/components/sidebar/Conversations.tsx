@@ -1,21 +1,20 @@
-import React from 'react'
 import Conversation from './Conversation'
 import useGetConversations from '../../hooks/useGetConversations';
 import { getRandomEmoji } from "../../utils/emoji"
 const Conversations = () => {
 
-	const {loading, conversations} = useGetConversations();
+	const { loading, conversations } = useGetConversations();
 
-  return (
-    <div className='py-2 flex flex-col overflow-auto'>
+	return (
+		<div className='py-2 flex flex-col overflow-auto'>
 
 			{
-				conversations?.map((conversation, index) => (
+				conversations?.map((conversation: any, index) => (
 					<Conversation
-					key ={Conversation._id}
-					conversation={conversation}
-					emoji={getRandomEmoji()}
-					lastIdx={index === conversations.length -1}
+						key={conversation._id}
+						conversation={conversation}
+						emoji={getRandomEmoji()}
+						lastIdx={index === conversations.length - 1}
 					/>
 				))
 			}
@@ -23,10 +22,10 @@ const Conversations = () => {
 
 			{
 				loading ? <span className='loading loading-spinner'></span>
-				: null
+					: null
 			}
 		</div>
-  )
+	)
 }
 
 export default Conversations

@@ -4,14 +4,16 @@ import useConversation from "../zustand/useConversation";
 import axios from "axios";
 
 const useGetMessages = () => {
-	const [loading, setLoading] = useState(false);
-	const { messages, setMessages, selectedConversation } = useConversation();
+    const [loading, setLoading] = useState(false);
+    const { messages, setMessages, selectedConversation } = useConversation();
 
     const getMessages = async () => {
         setLoading(true);
         try {
             const res = await axios.get(`/api/messages/${selectedConversation._id}`);
-            if (res.error) throw new Error(res.error);
+
+            if (res?.data?.error) throw new Error(res?.data?.error);
+
             setMessages(res?.data);
         } catch (error: any) {
             toast.error(error.message);
@@ -19,12 +21,14 @@ const useGetMessages = () => {
             setLoading(false);
         }
     };
+    console.log('messagessss', messages)
 
-	useEffect(() => {
-		if (selectedConversation?._id) 
+
+    useEffect(() => {
+        if (selectedConversation?._id)
             getMessages();
-	}, [selectedConversation?._id, setMessages]);
+    }, [selectedConversation?._id]);
 
-	return { messages, loading };
+    return { messages, loading };
 };
 export default useGetMessages;

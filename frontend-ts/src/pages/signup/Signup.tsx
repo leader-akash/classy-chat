@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import GenderCheckbox from './GenderCheckbox';
 import useSignup from '../../hooks/useSignup';
+import { Link } from 'react-router-dom';
 
 const Signup = () => {
 
@@ -79,9 +80,9 @@ const Signup = () => {
 
 					<GenderCheckbox onCheckboxChange={handleCheckboxChange} selectedGender={input.gender} />
 
-					<a className='text-sm hover:underline hover:text-blue-600 mt-4 mb-2 inline-block text-white' href='/login'>
+					<Link className='text-sm hover:underline hover:text-blue-600 mt-4 mb-2 inline-block text-white' to='/login'>
 						Already have an account? Login
-					</a>
+					</Link>
 
 					<div>
 						<button type='submit' className='btn btn-block btn-sm mt-2 border border-slate-700' disabled={loading}>

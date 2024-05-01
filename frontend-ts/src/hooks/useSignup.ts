@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState } from 'react'
+import { useState } from 'react'
 import toast from 'react-hot-toast';
 import { useAuthContext } from '../context/AuthContext';
 
@@ -22,9 +22,9 @@ const useSignup = () => {
                 fullName, username, password, confirmPassword, gender
             })
 
-            
-            if(res?.error){
-                throw new Error(res?.error)
+            //
+            if(res?.data?.error){
+                throw new Error(res?.data?.error)
             }
 
             const data = res?.data

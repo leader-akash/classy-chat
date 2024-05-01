@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import useLogin from '../../hooks/useLogin';
 
@@ -46,7 +46,7 @@ const Login = () => {
                         />
                     </div>
 
-                    <a href={"/signup"} className="text-sm  text-white hover:underline hover:text-blue-600 mt-4 inline-block">Don't have an account? Signup</a>
+                    <Link to={"/signup"} className="text-sm  text-white hover:underline hover:text-blue-600 mt-4 inline-block">Don't have an account? Signup</Link>
 
                     <div>
                         <button type='submit' className='btn btn-block btn-sm mt-2' disabled={loading}>
