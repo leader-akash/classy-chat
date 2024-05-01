@@ -25,7 +25,7 @@ const SocketContextProvider = ({ children }: { children: ReactNode }) => {
 
     useEffect(() => {
         if (authUser) {
-            const socket = io(`http://localhost:4000`, {
+            const socket = io(`https://classychat.onrender.com/`, {
                 query: {
                     userId: authUser?._id
                 }
