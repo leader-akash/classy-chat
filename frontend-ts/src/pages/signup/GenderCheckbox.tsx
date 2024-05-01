@@ -1,6 +1,12 @@
-import React from 'react'
 
-const GenderCheckbox = ({onCheckboxChange, selectedGender}) => {
+type Gender = 'male' | 'female';
+interface GenderCheckboxProps {
+  onCheckboxChange: (gender: Gender) => void;
+  selectedGender: string // Assuming it could be null initially
+}
+
+const GenderCheckbox: React.FC<GenderCheckboxProps> = ({onCheckboxChange, selectedGender}) => {
+
   return (
     <div className='flex mt-2'>
 

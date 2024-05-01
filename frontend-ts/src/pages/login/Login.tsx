@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import useLogin from '../../hooks/useLogin';
 
@@ -41,12 +41,12 @@ const Login = () => {
                         <label className='label p-2 mt-2'>
                             <span className='text-base label- text-white '>Password</span>
                         </label>
-                        <input type="text" placeholder="Enter password" className="input input-bordered w-full max-w-xs"
+                        <input type="password" placeholder="Enter password" className="input input-bordered w-full max-w-xs"
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
 
-                    <a href={"/signup"} className="text-sm  text-white hover:underline hover:text-blue-600 mt-4 inline-block">Don't have an account? Signup</a>
+                    <Link to={"/signup"} className="text-sm  text-white hover:underline hover:text-blue-600 mt-4 inline-block">Don't have an account? Signup</Link>
 
                     <div>
                         <button type='submit' className='btn btn-block btn-sm mt-2' disabled={loading}>
@@ -97,7 +97,7 @@ export default Login
 //                         <label className='label p-2 mt-2'>
 //                             <span className='text-base label- text-white '>Password</span>
 //                         </label>
-//                         <input type="text" placeholder="Enter password" className="input input-bordered w-full max-w-xs" />
+//                         <input type="password" placeholder="Enter password" className="input input-bordered w-full max-w-xs" />
 //                     </div>
 
 //                     <a href={"#"} className="text-sm  text-white hover:underline hover:text-blue-600 mt-4 inline-block">Don't have an account? Signup.</a>

@@ -1,54 +1,65 @@
-import React, { useState } from 'react'
+import { useState } from 'react';
 import { FaSearch } from "react-icons/fa";
 import useConversation from '../../zustand/useConversation';
 import useGetConversations from '../../hooks/useGetConversations';
 import toast from 'react-hot-toast';
 
 const SearchInput = () => {
-
     const [search, setSearch] = useState('');
-    const {setSelectedConversation} = useConversation();
-    const {conversations} = useGetConversations();
+    const { setSelectedConversation } = useConversation();
+    const { conversations } = useGetConversations();
+
+    const handleSearch = () => {
+        if (!search) {
+            toast.error('Search term cannot be empty');
+            return;
+        }
+        if (search.length < 3) {
+            toast.error('Search term must be at least 3 characters');
+            return;
+        }
+
+        const conversation = conversations.find((e: any) => e.fullName.toLowerCase().includes(search.toLowerCase()));
+
+        if (conversation) {
+            setSelectedConversation(conversation);
+            setSearch('');
+        } else {
+            toast.error('No such user found');
+        }
+    };
 
     const handleSubmit = (e: any) => {
         e.preventDefault();
-        if(!search) return;
-        if(search.length < 3) {
-            toast.error('Search term must be at least 3 characters')
+        handleSearch();
+    };
+
+    const handleKeyPress = (e: any) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            handleSearch();
         }
-
-        const conversation = conversations.find((e) => e.fullName.toLowerCase().includes(search.toLowerCase()))
-
-        if(conversation) {
-            setSelectedConversation(conversation);
-            setSearch('');
-        }
-        else{
-            toast.error("no such user found")
-        }
-
-
-    }
-
-
+    };
 
     return (
-        <form
-            onSubmit={(e) => handleSubmit(e)}
-                className='flex items-center gap-2'>
-                <input type="text" className="input input-bordered rounded-full" placeholder="Search" 
-                
-                onChange={(e)=> setSearch(e.target.value)}
-                />
-                
-                <button type='submit' className='btn btn-circle bg-sky-500 text-white'>
+        <form onSubmit={handleSubmit} className='flex items-center gap-2'>
+            <input
+                type="search"
+                className="input input-bordered rounded-full"
+                placeholder="Search"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                onKeyDown={handleKeyPress}
+            />
+            <button type='submit' className='btn btn-circle bg-sky-500 text-white'>
                 <FaSearch />
-                </button>
+            </button>
         </form>
-    )
-}
+    );
+};
 
-export default SearchInput
+export default SearchInput;
+
 
 
 
