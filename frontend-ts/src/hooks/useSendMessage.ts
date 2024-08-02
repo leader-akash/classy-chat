@@ -26,8 +26,7 @@ const useSendMessage = () => {
         }
         catch(error: any){
             console.log('error', error)
-
-            toast.error(error?.message);
+            toast.error(error?.response?.data?.error);
         }
         finally{
             setLoading(false)
